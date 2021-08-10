@@ -40,7 +40,7 @@ server {
 		fastcgi_busy_buffers_size 256k;
 		fastcgi_temp_file_write_size 256k;
 
-		fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+		fastcgi_pass unix:/run/php/php7.4-fpm.sock;
 
 		# Point to our PHP FPM docker container.
 		#fastcgi_pass phpfpm:9000;
