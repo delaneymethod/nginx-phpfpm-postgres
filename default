@@ -15,10 +15,22 @@ server {
 
 	charset utf-8;
 
+    #- Blitz cache rewrite
+    set $cache_path false;
+
+    if ($request_method = GET) {
+        set $cache_path /cache/blitz/$host/$uri/$args/index.html;
+    }
+
+    if ($args ~ "token=") {
+        set $cache_path false;
+    }
+
+    #- Send would-be 404 requests to the cache path or Craft
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ /index.php?$query_string;
+		try_files $cache_path $uri $uri/ /index.php?$query_string;
 
 		# Remove index.php
 		rewrite ^/index\.php(.*) $1 permanent;
